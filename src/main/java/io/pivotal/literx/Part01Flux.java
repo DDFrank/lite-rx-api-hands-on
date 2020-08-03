@@ -47,7 +47,7 @@ public class Part01Flux {
 
 //========================================================================================
 
-		// Create a Flux that emits increasing values from 0 to 9 each 100ms
+	// Create a Flux that emits increasing values from 0 to 9 each 100ms
 	Flux<Long> counter() {
 		return Flux.interval(Duration.ofMillis(100)).map(i -> i.longValue()).take(10);
 	}
