@@ -1,5 +1,11 @@
 package io.pivotal.literx;
 
+import java.time.Duration;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
+
 import reactor.core.publisher.Flux;
 
 /**
@@ -12,37 +18,38 @@ public class Part01Flux {
 
 //========================================================================================
 
-	// TODO Return an empty Flux
+	// Return an empty Flux
 	Flux<String> emptyFlux() {
-		return null;
+		return Flux.empty();
 	}
 
 //========================================================================================
 
-	// TODO Return a Flux that contains 2 values "foo" and "bar" without using an array or a collection
+	// Return a Flux that contains 2 values "foo" and "bar" without using an array or a collection
 	Flux<String> fooBarFluxFromValues() {
-		return null;
+		return Flux.just("foo", "bar");
 	}
 
 //========================================================================================
 
-	// TODO Create a Flux from a List that contains 2 values "foo" and "bar"
+	// Create a Flux from a List that contains 2 values "foo" and "bar"
 	Flux<String> fooBarFluxFromList() {
-		return null;
+		List<String> l = Arrays.asList("foo", "bar");
+		return Flux.fromIterable(l);
 	}
 
 //========================================================================================
 
-	// TODO Create a Flux that emits an IllegalStateException
+	// Create a Flux that emits an IllegalStateException
 	Flux<String> errorFlux() {
-		return null;
+		return Flux.error(new IllegalStateException());
 	}
 
 //========================================================================================
 
-		// TODO Create a Flux that emits increasing values from 0 to 9 each 100ms
+		// Create a Flux that emits increasing values from 0 to 9 each 100ms
 	Flux<Long> counter() {
-		return null;
+		return Flux.interval(Duration.ofMillis(100)).map(i -> i.longValue()).take(10);
 	}
 
 }
