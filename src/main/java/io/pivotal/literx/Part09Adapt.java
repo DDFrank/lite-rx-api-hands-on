@@ -22,6 +22,7 @@ import io.pivotal.literx.domain.User;
 import io.reactivex.rxjava3.core.Flowable;
 import io.reactivex.rxjava3.core.Observable;
 import io.reactivex.rxjava3.core.Single;
+
 import org.reactivestreams.Publisher;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
@@ -41,50 +42,52 @@ public class Part09Adapt {
 
 //========================================================================================
 
-	// TODO Adapt Flux to RxJava Flowable
+	// Adapt Flux to RxJava Flowable
 	Flowable<User> fromFluxToFlowable(Flux<User> flux) {
-		return null;
+		return Flowable.fromPublisher(flux);
 	}
 
-	// TODO Adapt RxJava Flowable to Flux
+	// Adapt RxJava Flowable to Flux
 	Flux<User> fromFlowableToFlux(Flowable<User> flowable) {
-		return null;
+		return Flux.from(flowable);
 	}
 
 //========================================================================================
 
-	// TODO Adapt Flux to RxJava Observable
+	// Adapt Flux to RxJava Observable
 	Observable<User> fromFluxToObservable(Flux<User> flux) {
-		return null;
+		return Observable.fromPublisher(flux);
 	}
 
-	// TODO Adapt RxJava Observable to Flux
+	// Adapt RxJava Observable to Flux
 	Flux<User> fromObservableToFlux(Observable<User> observable) {
-		return null;
+		return Flux.create(e -> {
+			observable.subscribe(u -> e.next(u), throwable -> e.error(throwable), () -> e.complete());
+		});
 	}
 
 //========================================================================================
 
-	// TODO Adapt Mono to RxJava Single
+	// Adapt Mono to RxJava Single
 	Single<User> fromMonoToSingle(Mono<User> mono) {
-		return null;
+		return Single.fromPublisher(mono);
 	}
 
-	// TODO Adapt RxJava Single to Mono
+	// Adapt RxJava Single to Mono
 	Mono<User> fromSingleToMono(Single<User> single) {
-		return null;
+		return Mono.create(e -> single.subscribe(u -> e.success(u), exception -> e.error(exception)));
 	}
 
 //========================================================================================
 
-	// TODO Adapt Mono to Java 8+ CompletableFuture
+	// Adapt Mono to Java 8+ CompletableFuture
 	CompletableFuture<User> fromMonoToCompletableFuture(Mono<User> mono) {
-		return null;
+		return mono.toFuture();
 	}
 
-	// TODO Adapt Java 8+ CompletableFuture to Mono
+	// Adapt Java 8+ CompletableFuture to Mono
 	Mono<User> fromCompletableFutureToMono(CompletableFuture<User> future) {
-		return null;
+		return Mono.fromFuture(future);
 	}
 
 }
