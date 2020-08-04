@@ -20,7 +20,7 @@ import static org.assertj.core.api.Assertions.assertThat;
  * @author Sebastien Deleuze
  */
 public class Part06RequestTest {
-
+	public static String NEW_LINE = System.getProperty("line.separator");
 	Part06Request workshop = new Part06Request();
 	ReactiveRepository<User> repository = new ReactiveUserRepository();
 
@@ -74,16 +74,17 @@ public class Part06RequestTest {
 				.verifyComplete();
 
 		String log = logConsole.toString().replaceAll(threadInfos, "");
+
 		assertThat(log)
-				.contains("onSubscribe(FluxZip.ZipCoordinator)\n"
-						+ "request(1)\n"
-						+ "onNext(Person{username='swhite', firstname='Skyler', lastname='White'})\n"
-						+ "request(1)\n"
-						+ "onNext(Person{username='jpinkman', firstname='Jesse', lastname='Pinkman'})\n"
-						+ "request(2)\n"
-						+ "onNext(Person{username='wwhite', firstname='Walter', lastname='White'})\n"
-						+ "onNext(Person{username='sgoodman', firstname='Saul', lastname='Goodman'})\n"
-						+ "onComplete()\n");
+				.contains("onSubscribe(FluxZip.ZipCoordinator)" + NEW_LINE
+						+ "request(1)" + NEW_LINE
+						+ "onNext(Person{username='swhite', firstname='Skyler', lastname='White'})" + NEW_LINE
+						+ "request(1)" + NEW_LINE
+						+ "onNext(Person{username='jpinkman', firstname='Jesse', lastname='Pinkman'})" + NEW_LINE
+						+ "request(2)" + NEW_LINE
+						+ "onNext(Person{username='wwhite', firstname='Walter', lastname='White'})" + NEW_LINE
+						+ "onNext(Person{username='sgoodman', firstname='Saul', lastname='Goodman'})" + NEW_LINE
+						+ "onComplete()" + NEW_LINE);
 	}
 
 //========================================================================================
@@ -96,12 +97,12 @@ public class Part06RequestTest {
 				.verifyComplete();
 
 		assertThat(logConsole.toString())
-				.isEqualTo("Starring:\n"
-						+ "Skyler White\n"
-						+ "Jesse Pinkman\n"
-						+ "Walter White\n"
-						+ "Saul Goodman\n"
-						+ "The end!\n");
+				.contains("Starring:" + NEW_LINE
+						+ "Skyler White" + NEW_LINE
+						+ "Jesse Pinkman" + NEW_LINE
+						+ "Walter White" + NEW_LINE
+						+ "Saul Goodman" + NEW_LINE
+						+ "The end!" + NEW_LINE);
 	}
 
 }
